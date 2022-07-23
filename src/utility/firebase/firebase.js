@@ -17,3 +17,17 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
+// initialize a provider - create a new provider class - eg if you sign in normally or redirect
+const provider = new GoogleAuthProvider();
+
+// rules - must select an account
+provider.setCustomParameters({
+  prompt: 'select_account',
+});
+
+// authentication instance exported to app - singleton - always the same rules so no need to create new classes
+export const auth = getAuth();
+
+// google sign in popup which returns signInWithPopup function with auth and provider passed in
+export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
