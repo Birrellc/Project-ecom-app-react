@@ -6,6 +6,9 @@ import {
   GoogleAuthProvider,
 } from 'firebase/auth';
 
+// initialize firestore, get a document instance, access data of a doc and set the data for a doc
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+
 const firebaseConfig = {
   apiKey: 'AIzaSyARA2pifyktFTOl0y6SM2HCG6ybutu0W4Q',
   authDomain: 'ecom-app-db-a3213.firebaseapp.com',
@@ -31,3 +34,17 @@ export const auth = getAuth();
 
 // google sign in popup which returns signInWithPopup function with auth and provider passed in
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+//Database - instantiate - to do anything to the db we use 'db'
+export const db = getFirestore();
+
+//Async function that recieves user authentication logic
+export const createUserDocumentFromAuth = async (userAuth) => {
+  //take data from auth service nd store the data inside firestore db
+  // 1) see if there is an existing doc references
+  // doc info - 3 arguments - the db - the collection - an identifier eg (db, shoes, nikeairmax)
+  // access the uid key and value from the userAuth object
+  const userDocRef = doc(db, 'users', userAuth.uid);
+
+  console.log(userDocRef);
+};
