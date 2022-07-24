@@ -44,7 +44,13 @@ export const signInWithGooglePopup = () =>
 export const db = getFirestore();
 
 //Async function that recieves user authentication logic
-export const createUserDocumentFromAuth = async (userAuth) => {
+// // addictionalInfo is empty object but when displayName is null we overwrite with the object data
+// // displayName comes from signup form so need to add to database as google needs a name
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  // Empty object
+  additionalInfo = {}
+) => {
   // if no userAuth return out of the function
   if (!userAuth) return;
   //take data from auth service nd store the data inside firestore db
@@ -70,10 +76,13 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 
     try {
       // set/create a doc with the displayName,email & created at in the db
+      // if displayName exists on userAuth set
       await setDoc(userDocRef, {
         displayName,
         email,
         createdAt,
+        // if no displayName will set to null so spread the additionalinfo on top to overwrite null to the actual displayName
+        ...additionalInfo,
       });
     } catch (error) {
       console.log('error creating the user', error.message);
