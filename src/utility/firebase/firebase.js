@@ -1,5 +1,10 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
 
 // initialize firestore, get a document instance, access data of a doc and set the data for a doc
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
@@ -40,6 +45,8 @@ export const db = getFirestore();
 
 //Async function that recieves user authentication logic
 export const createUserDocumentFromAuth = async (userAuth) => {
+  // if no userAuth return out of the function
+  if (!userAuth) return;
   //take data from auth service nd store the data inside firestore db
   // 1) see if there is an existing doc references
   // doc info - 3 arguments - the db - the collection - an identifier eg (db, shoes, nikeairmax)
@@ -76,4 +83,13 @@ export const createUserDocumentFromAuth = async (userAuth) => {
   // if user data does exist
   // 1) return userDocRef
   return userDocRef;
+};
+
+// Create user with email and password
+// crete an authenticated user inside firebase authentication
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  // if either email or password is missing return out of function
+  if (!email || !password) return;
+
+  return await createAuthUserWithEmailAndPassword(auth, email, password);
 };

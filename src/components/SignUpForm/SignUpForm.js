@@ -11,6 +11,7 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
+  console.log(formFields);
   // function to gather field input data
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
