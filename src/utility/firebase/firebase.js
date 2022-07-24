@@ -90,6 +90,6 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   // if either email or password is missing return out of function
   if (!email || !password) return;
-
-  return await createAuthUserWithEmailAndPassword(auth, email, password);
+  // do not confuse with createAuhUserWithEmailAndPassowrd - will cause a loop
+  return await createUserWithEmailAndPassword(auth, email, password);
 };
