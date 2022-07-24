@@ -1,10 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import {
-  getAuth,
-  signInWithRedirect,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 // initialize firestore, get a document instance, access data of a doc and set the data for a doc
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
@@ -35,6 +30,10 @@ export const auth = getAuth();
 // google sign in popup which returns signInWithPopup function with auth and provider passed in
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
+
+// Sign in With Redirect
+// export const signInWithGoogleRedirect = () =>
+//   signInWithRedirect(auth, googleProvider);
 
 //Database - instantiate - to do anything to the db we use 'db'
 export const db = getFirestore();

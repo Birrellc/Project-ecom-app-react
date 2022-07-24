@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
@@ -11,6 +10,7 @@ const Login = () => {
     const { user } = await signInWithGooglePopup();
     const userDocRef = await createUserDocumentFromAuth(user);
   };
+
   return (
     <div>
       <h1>Login</h1>
@@ -20,3 +20,20 @@ const Login = () => {
 };
 
 export default Login;
+
+// **** This code was created to experiment with login methods ****
+// *** Sign in with google redirect ***
+// when we come back application remount
+// on mount run the below callback
+// which gets the response from the redirect that just happened via tracking the auth
+// useEffect(() => {
+//   async function fetchData() {
+//     const response = await getRedirectResult(auth);
+//     console.log(response);
+//     if (response) {
+//       // if response create user in the db from the response.user
+//       const userDocRef = await createUserDocumentFromAuth(response.user);
+//     }
+//   }
+//   fetchData();
+// }, []);
