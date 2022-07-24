@@ -22,10 +22,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // initialize a provider - create a new provider class - eg if you sign in normally or redirect
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 // rules - must select an account
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
   prompt: 'select_account',
 });
 
@@ -33,7 +33,8 @@ provider.setCustomParameters({
 export const auth = getAuth();
 
 // google sign in popup which returns signInWithPopup function with auth and provider passed in
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
 
 //Database - instantiate - to do anything to the db we use 'db'
 export const db = getFirestore();
