@@ -3,6 +3,8 @@ import {
   createUserDocumentFromAuth,
 } from '../../utility/firebase/firebase';
 
+import SignUpForm from '../../components/SignUpForm/SignUpForm';
+
 const Login = () => {
   // remember whenever accessing database we use async
   const logGoogleUser = async () => {
@@ -15,6 +17,7 @@ const Login = () => {
     <div>
       <h1>Login</h1>
       <button onClick={logGoogleUser}>sign in with google popup</button>
+      <SignUpForm />
     </div>
   );
 };
