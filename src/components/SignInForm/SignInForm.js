@@ -7,7 +7,6 @@ import {
 } from '../../utility/firebase/firebase';
 import './SignInForm.scss';
 import Button from '../Button/Button';
-import { toBePartiallyChecked } from '@testing-library/jest-dom/dist/matchers';
 
 const defaultFormFields = {
   email: '',
