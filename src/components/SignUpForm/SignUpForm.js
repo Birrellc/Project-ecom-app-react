@@ -5,6 +5,7 @@ import {
   createUserDocumentFromAuth,
 } from '../../utility/firebase/firebase';
 import './SignUpForm.scss';
+import Button from '../Button/Button';
 
 const defaultFormFields = {
   displayName: '',
@@ -101,7 +102,7 @@ const SignUpForm = () => {
           minLength='6'
         />
 
-        <button type='submit'>Sign Up</button>
+        <Button type='submit'>Sign Up</Button>
       </form>
     </div>
   );
