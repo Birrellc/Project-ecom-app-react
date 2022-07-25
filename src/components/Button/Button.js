@@ -8,9 +8,12 @@ const buttonClasses = {
 };
 
 // children relates to child elements eg, spans, p tags etc
-const Button = ({ children, buttonType }) => {
+const Button = ({ children, buttonType, ...otherProps }) => {
   return (
-    <button className={`button-container ${buttonClasses[buttonType]}`}>
+    <button
+      className={`button-container ${buttonClasses[buttonType]}`}
+      {...otherProps}
+    >
       {children}
     </button>
   );
