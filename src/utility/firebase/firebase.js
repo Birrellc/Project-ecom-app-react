@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 
 // initialize firestore, get a document instance, access data of a doc and set the data for a doc
@@ -95,10 +96,18 @@ export const createUserDocumentFromAuth = async (
 };
 
 // Create user with email and password
-// crete an authenticated user inside firebase authentication
+// create an authenticated user inside firebase authentication
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   // if either email or password is missing return out of function
   if (!email || !password) return;
   // do not confuse with createAuhUserWithEmailAndPassowrd - will cause a loop
   return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+// login with email and password
+export const SignInAuthUserWithEmailAndPassword = async (email, password) => {
+  // if either email or password is missing return out of function
+  if (!email || !password) return;
+
+  return await signInWithEmailAndPassword(auth, email, password);
 };
