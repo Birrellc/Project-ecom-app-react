@@ -20,7 +20,8 @@ const SignInForm = () => {
 
   // retreive setter function from UserContext state so can set it below
   const { setCurrentUser } = useContext(UserContext);
-
+  // pass the user info to the setter function provided by useContext
+  setCurrentUser(user);
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -29,7 +30,7 @@ const SignInForm = () => {
   const SignInWithGoogleUser = async () => {
     // destruct the user from the response
     const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    createUserDocumentFromAuth(user);
   };
 
   const onSubmitHandler = async (e) => {
