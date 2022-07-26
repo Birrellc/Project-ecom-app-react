@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../../contexts/User';
 import FormInput from '../FormInput/FormInput';
 import {
   signInWithGooglePopup,
@@ -17,6 +18,9 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  // retreive setter function from UserContext state so can set it below
+  const { setCurrentUser } = useContext(UserContext);
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -31,13 +35,13 @@ const SignInForm = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    // }
     try {
-      const response = await SignInAuthUserWithEmailAndPassword(
+      const { user } = await SignInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
+      // pass the user info to the setter function provided by useContext
+      setCurrentUser(user);
       resetFormFields();
     } catch (error) {
       switch (error.code) {
