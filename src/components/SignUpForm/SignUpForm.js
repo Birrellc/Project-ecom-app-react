@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import FormInput from '../FormInput/FormInput';
 import {
   createAuthUserWithEmailAndPassword,
@@ -6,6 +6,7 @@ import {
 } from '../../utility/firebase/firebase';
 import './SignUpForm.scss';
 import Button from '../Button/Button';
+import { UserContext } from '../../contexts/User';
 
 const defaultFormFields = {
   displayName: '',
@@ -17,6 +18,9 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
+
+  // retreive setter function from UserContext state so can set it below
+  const { setCurrentUser } = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -35,6 +39,9 @@ const SignUpForm = () => {
         email,
         password
       );
+
+      // pass the user info to the setter function provided by useContext
+      setCurrentUser(user);
 
       // create user document with the user an object wit the displayName value that the user would have entered in the form
       await createUserDocumentFromAuth(user, { displayName });

@@ -5,6 +5,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 
 // initialize firestore, get a document instance, access data of a doc and set the data for a doc
@@ -109,3 +110,8 @@ export const SignInAuthUserWithEmailAndPassword = async (email, password) => {
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
+
+// log out user
+// pass through the auth singleton so firebase can find which user
+// async as returning a promise
+export const signOutUser = async () => await signOut(auth);
