@@ -1,5 +1,8 @@
 import { createContext, useState, useEffect } from 'react';
-import { onAuthStateChangedListener } from '../utility/firebase/firebase';
+import {
+  onAuthStateChangedListener,
+  createUserDocumentFromAuth,
+} from '../utility/firebase/firebase';
 
 // as actual value to access
 // empty state of an object should usually be null
@@ -16,7 +19,12 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
-      console.log(user);
+      // create a doc otherwise set current user
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+      // sets to the value or null
+      setCurrentUser(user);
     });
 
     return unsubscribe;

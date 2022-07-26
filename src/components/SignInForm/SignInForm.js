@@ -1,5 +1,4 @@
-import { useState, useContext } from 'react';
-import { UserContext } from '../../contexts/User';
+import { useState } from 'react';
 import FormInput from '../FormInput/FormInput';
 import {
   signInWithGooglePopup,
@@ -18,19 +17,14 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  // retreive setter function from UserContext state so can set it below
-  const { setCurrentUser } = useContext(UserContext);
-  // pass the user info to the setter function provided by useContext
-  setCurrentUser(user);
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
   // remember whenever accessing database we use async
   const SignInWithGoogleUser = async () => {
-    // destruct the user from the response
-    const { user } = await signInWithGooglePopup();
-    createUserDocumentFromAuth(user);
+    //coming form context User
+    await signInWithGooglePopup();
   };
 
   const onSubmitHandler = async (e) => {
@@ -41,8 +35,7 @@ const SignInForm = () => {
         email,
         password
       );
-      // pass the user info to the setter function provided by useContext
-      setCurrentUser(user);
+
       resetFormFields();
     } catch (error) {
       switch (error.code) {

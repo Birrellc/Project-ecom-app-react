@@ -7,13 +7,8 @@ import './Navigation.scss';
 
 const Navigation = () => {
   // recieve value of current user from UserContext
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-  // setCurrentUser to null on logout
-  const signOutHandler = async () => {
-    // track auth state of user
-    await signOutUser();
-    setCurrentUser(null);
-  };
+  const { currentUser } = useContext(UserContext);
+
   return (
     <>
       <div className='navigation'>
@@ -26,7 +21,7 @@ const Navigation = () => {
             SHOP
           </Link>
           {currentUser ? (
-            <span className='nav-link' onClick={signOutHandler}>
+            <span className='nav-link' onClick={signOutUser}>
               LOG OUT
             </span>
           ) : (
