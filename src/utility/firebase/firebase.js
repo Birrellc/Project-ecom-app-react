@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from 'firebase/auth';
 
 // initialize firestore, get a document instance, access data of a doc and set the data for a doc
@@ -115,3 +116,8 @@ export const SignInAuthUserWithEmailAndPassword = async (email, password) => {
 // pass through the auth singleton so firebase can find which user
 // async as returning a promise
 export const signOutUser = async () => await signOut(auth);
+
+// observer - returns back whatever i get from onAuthStateChanged (auth and a custom callback)
+// calls the callback whenever the authentication state of auth changes eg..when user signs in
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
