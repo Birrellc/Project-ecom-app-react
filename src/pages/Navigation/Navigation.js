@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { ReactComponent as CrownLogo } from '../../assets/crown.svg';
+import { CartContext } from '../../contexts/Cart';
 import { UserContext } from '../../contexts/User';
 import { signOutUser } from '../../utility/firebase/firebase';
 import CartIcon from '../../components/CartIcon/CartIcon';
@@ -10,6 +11,7 @@ import './Navigation.scss';
 const Navigation = () => {
   // recieve value of current user from UserContext
   const { currentUser } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartContext);
 
   return (
     <>
@@ -33,7 +35,8 @@ const Navigation = () => {
           )}
           <CartIcon />
         </div>
-        <CartDropdown />
+        {/* logic - both sides have to evaluate true to work */}
+        {isCartOpen && <CartDropdown />}
       </div>
       <Outlet />
     </>
