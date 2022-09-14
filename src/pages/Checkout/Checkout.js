@@ -3,7 +3,8 @@ import { CartContext } from '../../contexts/Cart';
 import './Checkout.scss';
 
 const Checkout = () => {
-  const { cartItems, addItemToCart } = useContext(CartContext);
+  const { cartItems, addItemToCart, removeItemFromCart } =
+    useContext(CartContext);
 
   return (
     <div>
@@ -14,7 +15,7 @@ const Checkout = () => {
           return (
             <div key={id}>
               <h2>{name}</h2>
-              <span>-</span>
+              <span onClick={() => removeItemFromCart(cartItem)}>-</span>
               <span>{quantity}</span>
               <span onClick={() => addItemToCart(cartItem)}>+</span>
             </div>

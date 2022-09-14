@@ -1,5 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 
+//* Note: react doesnt register the value when mutated so it won't rerender the component so need to create a new object with ... to rerender the component with the new changes
+
 // helper function to check if matching product
 const addCartItem = (cartItems, productToAdd) => {
   // find if cartItems contains productToAdd
@@ -26,12 +28,31 @@ const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
+const removeCartItem = (cartItems, cartItemToRemove) => {
+  // find the cart item to remove
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === cartItemToRemove.id
+  );
+  // check if quantity is equal to 1, if it is remove item from cart instead of decrement
+  if (existingCartItem.quantity === 1) {
+    // filter items that = false, if true keep the value
+    return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
+  }
+  // map through items, if cartItem = cartItemToRemove give a new object with the cartitems with a lower quantity
+  return cartItems.map((cartItem) =>
+    cartItem.id === cartItemToRemove.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  );
+};
+
 export const CartContext = createContext({
   isCartOpen: false,
   setIsCartOpen: () => {},
   cartItems: [],
   // method to track items and quantity added to cart
   addItemToCart: () => {},
+  removeItemFromCart: () => {},
   cartCount: 0,
 });
 
@@ -56,12 +77,17 @@ export const CartProvider = ({ children }) => {
     setCartItems(addCartItem(cartItems, productToAdd));
   };
 
+  const removeItemFromCart = (cartItemToRemove) => {
+    setCartItems(removeCartItem(cartItems, cartItemToRemove));
+  };
+
   const value = {
     isCartOpen,
     setIsCartOpen,
     addItemToCart,
     cartItems,
     cartCount,
+    removeItemFromCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
