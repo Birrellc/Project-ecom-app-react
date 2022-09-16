@@ -59,12 +59,14 @@ export const CartContext = createContext({
   removeItemFromCart: () => {},
   deleteItemFromCart: () => {},
   cartCount: 0,
+  cartTotal: 0,
 });
 
 export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [cartCount, setCartCount] = useState(0);
+  const [cartTotal, setCartTotal] = useState(0);
 
   // calculate the count of items in the cart
   useEffect(() => {
@@ -73,6 +75,16 @@ export const CartProvider = ({ children }) => {
       0
     );
     setCartCount(newCartCount);
+  }, [cartItems]);
+
+  // calculate total for all items in basket
+  // adds total to quantity * price
+  useEffect(() => {
+    const newCartTotal = cartItems.reduce(
+      (total, cartItem) => total + cartItem.quantity * cartItem.price,
+      0
+    );
+    setCartTotal(newCartTotal);
   }, [cartItems]);
 
   // triggers when users click add to cart
@@ -93,9 +105,10 @@ export const CartProvider = ({ children }) => {
   const value = {
     isCartOpen,
     setIsCartOpen,
-    addItemToCart,
     cartItems,
     cartCount,
+    cartTotal,
+    addItemToCart,
     removeItemFromCart,
     deleteItemFromCart,
   };
